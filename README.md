@@ -1,38 +1,16 @@
-[![crates.io](https://img.shields.io/crates/d/cortex-a.svg)](https://crates.io/crates/cortex-a)
-[![crates.io](https://img.shields.io/crates/v/cortex-a.svg)](https://crates.io/crates/cortex-a)
+# arm-isa-a64 [design draft]
 
-# cortex-a
+This crate provides an API for Arm ISA A64 instructions supported by the Armv8-A
+architecture. It is a design draft and solely used for experimental purposes. 
 
-Low level access to Cortex-A processors
-
-## Usage
-
-Example from https://github.com/rust-embedded/rust-raspi3-tutorial
-
-```rust
-#[no_mangle]
-pub unsafe extern "C" fn _boot_cores() -> ! {
-    use cortex_a::{asm, regs::*};
-
-    const CORE_MASK: u64 = 0x3;
-    const STACK_START: u64 = 0x80_000;
-
-    match MPIDR_EL1.get() & CORE_MASK {
-        0 => {
-            SP.set(STACK_START);
-            reset()
-        }
-        _ => loop {
-            // if not core0, infinitely wait for events
-            asm::wfe();
-        },
-    }
-}
-```
+This work is based on the efforts of the [Cortex-A team][team].
 
 ## Disclaimer
 
-Descriptive comments in the source files are taken from the [ARM Architecture Reference Manual ARMv8, for ARMv8-A architecture profile](https://static.docs.arm.com/ddi0487/ca/DDI0487C_a_armv8_arm.pdf?_ga=2.266626254.1122218691.1534883460-1326731866.1530967873).
+Descriptive comments in the source files are taken from the following documents:
+
+* [Arm Architecture Reference Manual - Armv8, for Armv8-A architecture profile][arm_ref_0]
+* [Arm Architecture Reference Manual - Armv7-A and Armv7-R edition][arm_ref_1]
 
 ## License
 
@@ -40,12 +18,10 @@ Licensed under either of
 
 - Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE) or
   http://www.apache.org/licenses/LICENSE-2.0)
-- MIT License ([LICENSE-MIT](LICENSE-MIT) or http://opensource.org/licenses/MIT)
+- MIT license ([LICENSE-MIT](LICENSE-MIT) or http://opensource.org/licenses/MIT)
 
 at your option.
 
-### Contribution
-
-Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in the
-work by you, as defined in the Apache-2.0 license, shall be dual licensed as above, without any
-additional terms or conditions.
+[team]: https://github.com/rust-embedded/wg#the-cortex-a-team
+[arm_ref_0]: https://static.docs.arm.com/ddi0487/ea/DDI0487E_a_armv8_arm.pdf?_ga=2.140812338.1842257971.1570891190-1654016064.1570257337
+[arm_ref_1]: https://static.docs.arm.com/ddi0406/cd/DDI0406C_d_armv7ar_arm.pdf?_ga=2.140812338.1842257971.1570891190-1654016064.1570257337
