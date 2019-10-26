@@ -1,5 +1,5 @@
 [package]
-name = "cortex-a"
+name = "arm-isa-a64"
 version = "2.4.0"
 authors = ["Andre Richter <andre.o.richter@gmail.com>"]
 description = "Low level access to Cortex-A processors"
@@ -17,3 +17,4 @@ exclude = [
 
 [dependencies]
 register = "0.3.2"
+bare-metal = "0.2.0"
